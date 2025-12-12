@@ -15,17 +15,26 @@ const HomeStack = () => {
           component={CarsScreen} 
           options={{
               title: "Select a Car", 
-              headerStyle: {backgraundColor: colors},
-              headerTintColor: colors.color1}} />
+              headerStyle: { backgroundColor: colors.color1 },
+              headerTintColor: "#fff",
+              }} 
+              />
         <Stack.Screen 
         name="CarsDetailsScreen" 
         component={CarsDetailsScreen}
         options={{
           title: "Car Details",
-          headerStyle: {backgraundColor: colors},
-          headerTintColor: colors.color1
+          headerStyle: {backgroundColor: colors.color1},
+          headerTintColor: "#fff",
         }} />
-        <Stack.Screen name="ReservationResultScreen" component={ReservationResultScreen} />
+        <Stack.Screen 
+        name="ReservationResultScreen" 
+        component={ReservationResultScreen}
+        options={{
+          title: "Reservation Result",
+          headerStyle: { backgroundColor: colors.color1},
+          headerTintColor: "#fff",
+        }} />
       
     
     </Stack.Navigator>
