@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import {Card, IconButton, Paragraph, Title} from 'react-native-paper';
 import colors from '../../constants/colors';
 
-const Car = ({data}) => {
+const Car = ({data, navigation}) => {
   const {id, model, doors, seats, transmission, aircondition, pricePerHour, fuelType, builting, image} = data;
   return (
 <Card style= {styles.card}>
@@ -18,7 +18,7 @@ const Car = ({data}) => {
         iconColor= "white" 
         color="green" size={40} 
         style={{backgroundColor: colors.color1}}
-        // onPress={() => console.log("pressed")}
+        onPress={() => navigation.navigate("CarsDetailsScreen", {data})}
         />
       </Card.Content>
       </Card>

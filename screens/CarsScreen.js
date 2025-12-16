@@ -30,7 +30,7 @@ const CarsScreen = () => {
       {"id": 2, 
       "model": "BMW Black", 
       "doors": 3, 
-      "seats": 5, 
+      "seats": 4, 
       "transmission": "Automatic", 
       "aircondition": true, 
       "pricePerHour": 0,
