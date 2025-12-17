@@ -3,7 +3,7 @@ import {Card, IconButton, Paragraph, Title} from 'react-native-paper';
 import colors from '../../constants/colors';
 
 const Car = ({data, navigation}) => {
-  const {id, model, doors, seats, transmission, aircondition, pricePerHour, fuelType, builting, image} = data;
+  const {id, model, doors, seats, transmission, airConditioning, pricePerHour, fuelType, builting, image} = data;
   return (
 <Card style= {styles.card}>
       <Card.Cover source= {image} />

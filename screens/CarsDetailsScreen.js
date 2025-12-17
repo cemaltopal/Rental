@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { Card, Title, Paragraph, Icon } from 'react-native-paper'
+import { Card, Title, Paragraph, Icon, Button } from 'react-native-paper'
 import colors from '../constants/colors';
+import sizes from '../constants/sizes';
 
 const CarsDetailsScreen = ({route}) => {
   const data = route.params.data;
-  const {id, model, doors, seats, transmission, aircondition, pricePerHour, fuelType, builting, image} = data;
+  const {id, model, doors, seats, transmission, airConditioning, pricePerHour, fuelType, builting, image} = data;
   
   return (
     <View>
@@ -19,6 +20,26 @@ const CarsDetailsScreen = ({route}) => {
           <TouchableOpacity style={styles.button}>
            <Text style={styles.buttonText}> ${pricePerHour} / hour </Text>
             </TouchableOpacity>
+            <View style={styles.icons}>
+                  <View>
+                    <Icon name="car-shift-pattern" size={sizes.carDetailIconSize} color={colors.color1} />
+                    <Text>{transmission}</Text>
+                  </View>
+                  {airConditioning &&
+                  <View>
+                    <Icon name="snowflake" size={sizes.carDetailIconSize} color={colors.color1} />
+                    <Text>AİR Condition</Text>
+                  </View>
+                  }
+                  <View>
+                    <Icon name="building" size={sizes.carDetailIconSize} color={colors.color1} />
+                    <Text>{builting}</Text>
+                  </View>
+                  <View>
+                    <Icon name="gas-station" size={sizes.carDetailIconSize} color={colors.color1} />
+                    <Text>{fuelType}</Text>
+                  </View>
+            </View>
         </Card.Content>
       </Card>
     </View>
@@ -37,6 +58,7 @@ const styles = StyleSheet.create({
   },
   card: {
     marginTop: 20,
+    paddingBottom: 20,
   },
   button: {
     marginTop: 25,
@@ -49,5 +71,11 @@ const styles = StyleSheet.create({
     color: "black",
     textAlign: "center",
     fontSize: 20,
+  },
+  icons: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 25,
   },
 })
