@@ -1,9 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
-import {Card, IconButton, Paragraph, Title} from 'react-native-paper';
+import {Card, IconButton, Paragraph, Title, Icon} from 'react-native-paper';
 import colors from '../../constants/colors';
+import { useNavigation } from '@react-navigation/native';
 
-const Car = ({data, navigation}) => {
+const Car = ({data}) => {
   const {id, model, doors, seats, transmission, airConditioning, pricePerHour, fuelType, builting, image} = data;
+  
+  const navigation =useNavigation();
   return (
 <Card style= {styles.card}>
       <Card.Cover source= {image} />

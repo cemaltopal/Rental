@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View } from 'react-native'
-import { Card, Title, Paragraph, Icon, Button } from 'react-native-paper'
+import { Card, Title, Paragraph, Button } from 'react-native-paper'
 import colors from '../constants/colors';
 import sizes from '../constants/sizes';
+import Icon from '@expo/vector-icons/MaterialCommunityIcons';
 
 const CarsDetailsScreen = ({route}) => {
   const data = route.params.data;
@@ -10,16 +11,16 @@ const CarsDetailsScreen = ({route}) => {
   return (
     <View>
       <Card style={styles.card}>
-        <Card.Cover source={image [0]} />
+        <Card.Cover source={image} />
         <Card.Content style={styles.cardContent}>
           <Title style={styles.title}>{model}</Title>
           <Text> <Icon name="car-door" size={24} color={colors.color1} /> {doors} {" "} 
                doors  |  <Icon name="car-seat" size={24} color={colors.color1} /> {" "} 
                {seats} seats
           </Text>
-          <TouchableOpacity style={styles.button}>
+          {/* <TouchableOpacity style={styles.button}> */}
            <Text style={styles.buttonText}> ${pricePerHour} / hour </Text>
-            </TouchableOpacity>
+            {/* </TouchableOpacity> */}
             <View style={styles.icons}>
                   <View>
                     <Icon name="car-shift-pattern" size={sizes.carDetailIconSize} color={colors.color1} />
@@ -28,13 +29,9 @@ const CarsDetailsScreen = ({route}) => {
                   {airConditioning &&
                   <View>
                     <Icon name="snowflake" size={sizes.carDetailIconSize} color={colors.color1} />
-                    <Text>AİR Condition</Text>
+                    <Text>Air Cond</Text>
                   </View>
                   }
-                  <View>
-                    <Icon name="building" size={sizes.carDetailIconSize} color={colors.color1} />
-                    <Text>{builting}</Text>
-                  </View>
                   <View>
                     <Icon name="gas-station" size={sizes.carDetailIconSize} color={colors.color1} />
                     <Text>{fuelType}</Text>
