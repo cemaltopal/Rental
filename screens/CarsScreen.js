@@ -37,6 +37,17 @@ const CarsScreen = () => {
       "fuelType": "Diesel", 
       "builting": true,
       "image": require('../assets/cars/bmw.jpg')},
+
+      {"id": 3, 
+      "model": "Bugatti", 
+      "doors": 3, 
+      "seats": 4, 
+      "transmission": "Automatic", 
+      "airConditioning": true, 
+      "pricePerHour": 40,
+      "fuelType": "Diesel", 
+      "builting": true,
+      "image": require('../assets/cars/bugatti.jpg')},
   ]);
   return (
     <View>
