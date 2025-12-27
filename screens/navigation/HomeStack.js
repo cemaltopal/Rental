@@ -4,12 +4,17 @@ import CarsDetailsScreen from '../CarsDetailsScreen';
 import CarsScreen from '../CarsScreen';
 import ReservationResultScreen from '../ReservationResultScreen';
 import colors from '../../constants/colors';
+import Header from '../../components/common/Header';
 
 const HomeStack = () => {
     const Stack = createNativeStackNavigator();
 
   return (
-      <Stack.Navigator>
+      <Stack.Navigator 
+      screenOptions={{
+        header: (props) => <Header {...props}/>,
+      }}
+      >
         <Stack.Screen 
           name="CarsScreen" 
           component={CarsScreen} 
