@@ -7,13 +7,15 @@ import AboutStack from "./screens/navigation/AboutStack";
 import AccountStack from "./screens/navigation/AccountStack";
 import HomeStack from "./screens/navigation/HomeStack";
 import { PaperProvider } from "react-native-paper";
+import AppContext from "./store/AppContext";
 
 export default function App() {
   const Tab = createBottomTabNavigator();
   return (
-    <PaperProvider>
-      <NavigationContainer>
-        <Tab.Navigator
+    <AppContext.Provider>
+      <PaperProvider>
+        <NavigationContainer>
+          <Tab.Navigator
           screenOptions={{
             tabBarActiveTintColor: colors.color1,
             headerShown: false,
@@ -66,5 +68,6 @@ export default function App() {
         </Tab.Navigator>
       </NavigationContainer>
     </PaperProvider>
+    </AppContext.Provider>
   );
 }
