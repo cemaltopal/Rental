@@ -1,3 +1,4 @@
+import React,{ useState } from "react";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer } from "@react-navigation/native";
@@ -11,8 +12,10 @@ import AppContext from "./store/AppContext";
 
 export default function App() {
   const Tab = createBottomTabNavigator();
+  const [searchActive, setSearchActive] = useState(false);
+
   return (
-    <AppContext.Provider>
+    <AppContext.Provider value={{ searchActive, setSearchActive }}>
       <PaperProvider>
         <NavigationContainer>
           <Tab.Navigator

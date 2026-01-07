@@ -1,5 +1,5 @@
 import { StyleSheet, Text, View, FlatList} from 'react-native'
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Car from '../components/home/Car';
 import { Button,SearchBar } from 'react-native-screens';
 import AppContext from '../store/AppContext';
@@ -52,9 +52,9 @@ const CarsScreen = () => {
       "image": require('../assets/cars/bugatti.jpg')},
   ]);
 
-  const [searchActive, setSearchActive] = useState(false);
+  const {searchActive} = useContext(AppContext);
+
   return (
-    <AppContext.Provider value={{searchActive, setSearchActive}}>
     <View>
       {searchActive && <SearchBar style={styles.searchBar}/>}
       <FlatList
@@ -64,7 +64,6 @@ const CarsScreen = () => {
         />
    
     </View>
-    </AppContext.Provider>
   )
 };
 
