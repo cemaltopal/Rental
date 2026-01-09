@@ -53,12 +53,31 @@ const CarsScreen = () => {
   ]);
 
   const {searchActive} = useContext(AppContext);
+  const [filteredCars, setFilteredCars] = useState(cars);
+
+  const handleSearch = (txt) => {
+    if (txt.length >= 3) {
+      const filtered = cars.filter((car) => {
+        returncar.model.toLowerCase().includes(txt.toLowerCase())
+      });
+      setFilteredCars(filtered);
+    } else {
+      setFilteredCars(cars);
+    }
+  }
 
   return (
     <View>
-      {searchActive && <SearchBar style={styles.searchBar}/>}
+      {searchActive && (
+        <SearchBar 
+        style={styles.searchBar} 
+        onChangeText={(txt) => {
+          handleSearch(txt);
+        }}
+        />
+      )}
       <FlatList
-        data={cars}
+        data={filteredCars}
         renderItem={({item}) => <Car data={item}/>}
         keyExtractor={(item) => item.id}
         />
@@ -69,7 +88,7 @@ const CarsScreen = () => {
 
 const styles = StyleSheet.create({
   searchBar: {
-    margin: 10,
+    margin: 15,
   }
 })
 

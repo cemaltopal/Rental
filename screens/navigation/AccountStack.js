@@ -6,17 +6,42 @@ import ProfileScreen from '../ProfileScreen';
 import RegisterScreen from '../RegisterScreen';
 import ReservationDetailsScreen from '../ReservationDetailsScreen';
 import ReservationScreen from '../ReservationScreen';
+import Header from '../../components/common/Header';
 
 const AccountStack = () => {
     const Stack = createNativeStackNavigator();
   return (
       <Stack.Navigator>
-        <Stack.Screen name="Profile" component={ProfileScreen} />
-        <Stack.Screen name="ChangePassword" component={ChangePasswordScreen} />
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-        <Stack.Screen name="Reservations" component={ReservationScreen} />
-        <Stack.Screen name="ReservationDetails" component={ReservationDetailsScreen} />
+        screenOptions={{
+        header: (props) => <Header {...props}/>,
+      }}
+        <Stack.Screen 
+        name="Profile" 
+        component={ProfileScreen}
+        options={{ title: "Profile" }} />
+        <Stack.Screen 
+        name="ChangePassword" 
+        component={ChangePasswordScreen}
+        options={{
+          title: "Change Password",
+        }} />
+        <Stack.Screen 
+        name="Reservations" 
+        component={ReservationScreen}
+        options={{ title: "Reservations" }} />
+        <Stack.Screen 
+        name="ReservationDetails" 
+        component={ReservationDetailsScreen}
+        options={{ title: "Reservation Details" }} />
+        <Stack.Screen 
+        name="Login" 
+        component={LoginScreen}
+        options={{ title: "Login" }} />
+        <Stack.Screen 
+        name="Register" 
+        component={RegisterScreen}
+        options={{ title: "Register" }} />
+
       </Stack.Navigator>
   )
 }

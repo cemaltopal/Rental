@@ -3,15 +3,31 @@ import { Appbar } from 'react-native-paper';
 import colors from '../../constants/colors';
 import AppContext from '../../store/AppContext';
 import React, { useContext } from 'react';
+
+
 const Header = (props) => {
   
   const {searchActive, setSearchActive} = useContext(AppContext);
   const {navigation, route, options, back} = props;
+
   return (
     <Appbar.Header style={{backgroundColor: colors.color1}}>
-        <Appbar.Action icon="magnify" onPress={() => {setSearchActive(!searchActive)}} iconColor="white"/>
+        <Appbar.BackAction 
+        onPress={() => {
+          navigation.goBack();
+           }}
+            iconColor="white" 
+            />
         <Appbar.Content title={options.title} color="white"/>
-        <Appbar.BackAction onPress={() => {navigation.goBack() }} iconColor="white" />
+        { route.name === "CarsScreen" && (
+          <Appbar.Action 
+          icon="magnify" 
+          onPress={() => {
+            setSearchActive(!searchActive)
+          }} 
+          iconColor="white"
+          />
+        )}
     </Appbar.Header>
   )
 }
