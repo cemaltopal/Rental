@@ -1,32 +1,13 @@
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState, useCallback } from 'react';
 import { Card, Title, Paragraph, Button, TextInput } from 'react-native-paper'
 import colors from '../constants/colors';
 import sizes from '../constants/sizes';
 import Icon from '@expo/vector-icons/MaterialCommunityIcons';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { DatePickerModal } from 'react-native-paper-dates';
+import CarReservation from '../components/home/CarReservation';
 
 const CarsDetailsScreen = ({route}) => {
   const data = route.params.data;
   const {id, model, doors, seats, transmission, airConditioning, pricePerHour, fuelType, builting, image} = data;
-  
-  const [range, setRange] = useState({
-    startDate: new Date(),
-    endDate: new Date(),  
-  });
-  const [open, setOpen] = useState(false);
-  const onDismiss = useCallback(() => {
-    setOpen(false);
-  }, [setOpen]);
-  const onConfirm = useCallback(
-    ({startDate, endDate}) => {
-      setOpen(false);
-      setRange({startDate, endDate});
-    }, [setOpen, setRange] );
-  
-    const [picupLocation, setPicupLocation] = useState('');
-    const [dropoffLocation, setDropoffLocation] = useState('');
 
   return (
     <ScrollView style= {styles.container}>
@@ -59,50 +40,7 @@ const CarsDetailsScreen = ({route}) => {
             </View>
         </Card.Content>
       </Card>
-          <TextInput
-      placeholder="Pickup Location"
-      value={picupLocation}
-      onChangeText={text => setPicupLocation(text)}
-      backgroundColor={colors.color7}
-      style={{margin: 20, padding: 5 }}
-      activeUnderlineColor={colors.color1}
-      underlineColor="gray"
-    />
-         <TextInput
-      placeholder="Drop off Location"
-      value={dropoffLocation}
-      onChangeText={text => setDropoffLocation(text)}
-      backgroundColor={colors.color7}
-      style={{margin: 20, padding: 5 }}
-      activeUnderlineColor={colors.color1}
-      underlineColor="gray"
-    />
-
-      <SafeAreaProvider style={{margin: 20}}>
-         <View
-            style={{
-              width: "100%",
-              }}>
-                      <Button
-                        onPress={() => setOpen(true)}
-                        uppercase={false}
-                        mode="outlined"
-                        style={styles.dateTimeButton} >
-                        
-                        <Text style={{}}>Pick range</Text>
-
-                        </Button>
-                        <DatePickerModal
-                        locale="en"
-                        mode="range"
-                        visible={open}
-                        onDismiss={onDismiss}
-                        startDate={range.startDate}
-                        endDate={range.endDate}
-                        onConfirm={onConfirm}
-                      />
-                        </View>
-                  </SafeAreaProvider>
+          <CarReservation/>
       
     </ScrollView>
   );
