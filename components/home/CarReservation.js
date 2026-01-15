@@ -1,15 +1,43 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { useState, useCallback } from 'react';
-import { Card, Title, Paragraph, Button, TextInput } from 'react-native-paper'
+import { Card, Title, Paragraph, Button, TextInput, HelperText } from 'react-native-paper'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { DatePickerModal } from 'react-native-paper-dates';
 import { registerTranslation, enGB } from 'react-native-paper-dates';
 import  colors  from '../../constants/colors';
+import {useFormik} from 'formik';
+import *as Yup from 'yup';
+
 
 registerTranslation('en', enGB);
 
 const CarReservation = () => {
 
+    const validationSchema = Yup.object().shape({
+        picupLocation: Yup.string()
+        .max(250)
+        .required(" Bu alan Boş geçilemez"),
+        dropoffLocation: Yup.string()
+        .max(250)
+        .required("Bu alan Boş geçilemez"),
+        
+      });
+
+    const formik = useFormik({
+        initialValues: {
+          picupLocation: " ",
+          dropoffLocation: " ",
+          pickupDate: " ",
+          dropoffDate: " ",
+        },
+        onSubmit: values => {
+          console.log(values);
+        },
+        validationSchema,
+    });
+    
+
+//Date Picker States
     const [range, setRange] = useState({
     startDate: new Date(),
     endDate: new Date(),  
@@ -22,33 +50,41 @@ const CarReservation = () => {
     ({startDate, endDate}) => {
       setOpen(false);
       setRange({startDate, endDate});
+      formik.setFieldValue('pickupDate', startDate);
+      formik.setFieldValue('dropoffDate', endDate);
     }, [setOpen, setRange] );
   
-    const [picupLocation, setPicupLocation] = useState('');
-    const [dropoffLocation, setDropoffLocation] = useState('');
+    const [picupLocation, setPicupLocation] = useState("");
+    const [dropoffLocation, setDropoffLocation] = useState("");
 
   return (
-    <View>
+    <View style={{marginTop: 10}}>
         <TextInput
             placeholder="Pickup Location"
-            value={picupLocation}
-            onChangeText={text => setPicupLocation(text)}
+            value={formik.values.picupLocation}
+            onChangeText={formik.handleChange('picupLocation')}
             backgroundColor={colors.color7}
-            style={{margin: 20, padding: 5 }}
+            style={{ padding: 5 }}
             activeUnderlineColor={colors.color1}
             underlineColor="gray"
             />
+          <HelperText type="error" visible={formik.errors.picupLocation}>
+            {formik.errors.picupLocation}
+          </HelperText>
          <TextInput
             placeholder="Drop off Location"
-            value={dropoffLocation}
-            onChangeText={text => setDropoffLocation(text)}
+            value={formik.values.dropoffLocation}
+            onChangeText={formik.handleChange('dropoffLocation')}
             backgroundColor={colors.color7}
-            style={{margin: 20, padding: 5 }}
+            style={{ padding: 5 }}
             activeUnderlineColor={colors.color1}
             underlineColor="gray"
             />
-
-        <SafeAreaProvider style={{margin: 20}}>
+          <HelperText type="error" visible={formik.errors.dropoffLocation}>
+            {formik.errors.dropoffLocation}
+          </HelperText>
+        {/*Zaman seçimi*/}
+        <SafeAreaProvider style={{marginTop: 10, borderRadius: 10}}>
          <View
             style={{
               width: "100%",
@@ -59,7 +95,7 @@ const CarReservation = () => {
                         mode="outlined"
                         style={styles.dateTimeButton} >
                         
-                        <Text style={{}}>Pick range</Text>
+                        <Text style={{color: "black"}}>Pick range</Text>
 
                         </Button>
                         <DatePickerModal
@@ -67,8 +103,8 @@ const CarReservation = () => {
                         mode="range"
                         visible={open}
                         onDismiss={onDismiss}
-                        startDate={range.startDate}
-                        endDate={range.endDate}
+                        startDate={formik.values.pickupDate}
+                        endDate={formik.values.dropoffDate}
                         onConfirm={onConfirm}
                       />
                         </View>
@@ -76,7 +112,7 @@ const CarReservation = () => {
 
                   <View style={{margin: 15}}>
                   <Button 
-                  onPress={() => console.log("reserve")} 
+                  onPress={formik.handleSubmit} 
                   mode="contained" 
                   style={styles.button}
                   >
