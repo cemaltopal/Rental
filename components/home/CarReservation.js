@@ -20,15 +20,18 @@ const CarReservation = () => {
         dropoffLocation: Yup.string()
         .max(250)
         .required("Bu alan Boş geçilemez"),
+        pickupDate: Yup.date()
+        .required("Bu alan Boş gelemez"),
+        
         
       });
 
     const formik = useFormik({
         initialValues: {
-          picupLocation: " ",
-          dropoffLocation: " ",
-          pickupDate: " ",
-          dropoffDate: " ",
+          picupLocation: "",
+          dropoffLocation: "",
+          pickupDate: undefined,
+          dropoffDate: undefined,
         },
         onSubmit: values => {
           console.log(values);
@@ -52,7 +55,10 @@ const CarReservation = () => {
       setRange({startDate, endDate});
       formik.setFieldValue('pickupDate', startDate);
       formik.setFieldValue('dropoffDate', endDate);
-    }, [setOpen, setRange] );
+    }, 
+    [setOpen, setRange] );
+
+    //End Date Picker States
   
     const [picupLocation, setPicupLocation] = useState("");
     const [dropoffLocation, setDropoffLocation] = useState("");
@@ -109,8 +115,11 @@ const CarReservation = () => {
                       />
                         </View>
                   </SafeAreaProvider>    
+                  <HelperText type="error" visible={formik.errors.pickupDate}>
+                    {formik.errors.pickupDate} {formik.errors.dropoffDate}
+                  </HelperText>
 
-                  <View style={{margin: 15}}>
+                  <View style={{marginTop: 10}}>
                   <Button 
                   onPress={formik.handleSubmit} 
                   mode="contained" 

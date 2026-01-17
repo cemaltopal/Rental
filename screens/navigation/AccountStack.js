@@ -8,15 +8,19 @@ import ReservationDetailsScreen from '../ReservationDetailsScreen';
 import ReservationScreen from '../ReservationScreen';
 import Header from '../../components/common/Header';
 
+const Stack = createNativeStackNavigator();
 const AccountStack = () => {
-    const Stack = createNativeStackNavigator();
   return (
-      <Stack.Navigator>
-        screenOptions={{
+      <Stack.Navigator screenOptions={{
         header: (props) => <Header {...props}/>,
-      }}
+      }}>
+        
         <Stack.Screen 
-        name="Profile" 
+        name="LoginScreen" 
+        component={LoginScreen}
+        options={{ title: "Login" }} />
+        <Stack.Screen 
+        name="ProfileScreen" 
         component={ProfileScreen}
         options={{ title: "Profile" }} />
         <Stack.Screen 
@@ -33,10 +37,7 @@ const AccountStack = () => {
         name="ReservationDetails" 
         component={ReservationDetailsScreen}
         options={{ title: "Reservation Details" }} />
-        <Stack.Screen 
-        name="Login" 
-        component={LoginScreen}
-        options={{ title: "Login" }} />
+        
         <Stack.Screen 
         name="Register" 
         component={RegisterScreen}
