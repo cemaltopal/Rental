@@ -39,7 +39,7 @@ const AccountStack = () => {
         options={{ title: "Reservation Details" }} />
         
         <Stack.Screen 
-        name="Register" 
+        name="RegisterScreen" 
         component={RegisterScreen}
         options={{ title: "Register" }} />
 
