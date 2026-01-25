@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, useState, TouchableOpacity } from 'react-native';
 import { TextInput, Button, HelperText } from 'react-native-paper';
 import colors from '../constants/colors';
 import { useFormik } from 'formik';
@@ -33,6 +33,8 @@ const LoginScreen = () => {
     validationSchema,
   });
 
+    const[showPassword, setShowPassword] = React.useState(false);
+
   return (
     <View style={{padding: 15, paddingTop: 40}}>
       <TextInput
@@ -40,7 +42,7 @@ const LoginScreen = () => {
             value={formik.values.email}
             onChangeText={formik.handleChange('email')}
             backgroundColor={colors.color7}
-            style={{ padding: 5 }}
+            style={{ padding: 5, justifyContent: "center", alignItems: "center" }}
             activeUnderlineColor={colors.color1}
             underlineColor="gray"
             />
@@ -52,11 +54,14 @@ const LoginScreen = () => {
             value={formik.values.password}
             onChangeText={formik.handleChange('password')}
             backgroundColor={colors.color7}
-            style={{ padding: 5 }}
+            style={{ padding: 5, justifyContent: "center", alignItems: "center" }}
             activeUnderlineColor={colors.color1}
             underlineColor="gray"
-            secureTextEntry
-            right={<TextInput.Icon icon="eye" />}
+            secureTextEntry= {!showPassword}
+            right={
+            <TextInput.Icon icon={showPassword ? "eye-off" : "eye"}
+            style={{marginRight: 15}}
+            onPress={() => setShowPassword(!showPassword)} />}
             />
           <HelperText type="error" visible={formik.errors.password}>
             {formik.errors.password}
