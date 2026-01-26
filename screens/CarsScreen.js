@@ -67,6 +67,7 @@ const CarsScreen = () => {
   }
 
   return (
+    
     <View>
       {searchActive && (
         <SearchBar 
@@ -80,6 +81,7 @@ const CarsScreen = () => {
         data={filteredCars}
         renderItem={({item}) => <Car data={item}/>}
         keyExtractor={(item) => item.id}
+        contentContainerStyle={{paddingBottom: 100}}
         />
    
     </View>
