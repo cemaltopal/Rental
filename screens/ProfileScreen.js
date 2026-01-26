@@ -1,10 +1,11 @@
-import { View, Text } from 'react-native'
+import { View, Text } from 'react-native';
+import ProfileCard from '../components/account/ProfileCard';
 import React from 'react'
 
 const ProfileScreen = () => {
   return (
     <View>
-      <Text>ProfileScreen</Text>
+      <ProfileCard page={"profile"} />
     </View>
   )
 }

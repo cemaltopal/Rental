@@ -12,8 +12,13 @@ const Stack = createNativeStackNavigator();
 const AccountStack = () => {
   return (
       <Stack.Navigator screenOptions={{
-        header: (props) => <Header {...props}/>,
-      }}>
+        
+        header: (props) => <Header {...props}/>
+        ,
+      }}
+      initialRouteName="ProfileScreen"
+
+      >
         
         <Stack.Screen 
         name="LoginScreen" 

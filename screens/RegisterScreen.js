@@ -4,14 +4,13 @@ import colors from '../constants/colors';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
-import { MaskedTextInput } from 'react-native-mask-text';
 
 const RegisterScreen = () => {
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .email('Invalid email')
-      .required()
+      .email('Lütfen Gelerli bir Email Adresi Giriniz.')
+      .required('Email Alanını Doldurunuz')
       .label('Email'),
     password: Yup.string()
       .min(4)
