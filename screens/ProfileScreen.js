@@ -48,70 +48,74 @@ const ProfileScreen = () => {
       <ProfileCard page={"profile"} style={styles.card}/>
 
 <TextInput
-            placeholder= "First Name"
+            label= "First Name"
             value={formik.values.firstName}
             onChangeText={formik.handleChange('firstName')}
-            backgroundColor={colors.color7}
-            style={styles.Textinput}
+            style={{...styles.Textinput, marginTop: 20}}
             activeUnderlineColor={colors.color1}
             underlineColor="gray"
             />
-            <HelperText type="error" visible={formik.errors.firstName}>
+            <HelperText type="error" visible={formik.errors.firstName} style={{marginHorizontal: 20}}>
               {""}
               {formik.errors.firstName}{""}
             </HelperText>
 
       <TextInput
-            placeholder= "Last Name"
+            label= "Last Name"
             value={formik.values.lastName}
             onChangeText={formik.handleChange('lastName')}
-            backgroundColor={colors.color7}
-            style={{ padding: 5, justifyContent: "center", alignItems: "center" }}
+            style={styles.Textinput}
             activeUnderlineColor={colors.color1}
             underlineColor="gray"
             />
-            <HelperText type="error" visible={formik.errors.lastName}>
+            <HelperText type="error" visible={formik.errors.lastName} style={{marginHorizontal: 20}} >
               {formik.errors.lastName}
             </HelperText>
 
       <TextInput
-            placeholder= "Phone Number"
+            label= "Phone Number"
             value={formik.values.phone}
             onChangeText={formik.handleChange('phone')}
-            backgroundColor={colors.color7}
-            style={{ padding: 5, justifyContent: "center", alignItems: "center" }}
+            style={styles.Textinput}
             activeUnderlineColor={colors.color1}
             underlineColor="gray"
+            keyboardType='numeric'
+
             />
-            <HelperText type="error" visible={formik.errors.phone}>
+            <HelperText type="error" visible={formik.errors.phone} style={{marginHorizontal: 20}}>
               {formik.errors.phone}
             </HelperText>
 
       <TextInput
-            placeholder= "Address"
+            label= "Address"
             value={formik.values.address}
             onChangeText={formik.handleChange('address')}
-            backgroundColor={colors.color7}
-            style={{ padding: 5, justifyContent: "center", alignItems: "center" }}
+            style={styles.Textinput}
             activeUnderlineColor={colors.color1}
             underlineColor="gray"
             />
-            <HelperText type="error" visible={formik.errors.address}>
+            <HelperText type="error" visible={formik.errors.address} style={{marginHorizontal: 20}}>
               {formik.errors.address}
             </HelperText>
 
       <TextInput
-            placeholder= "Zip Code"
+            label= "Zip Code"
             value={formik.values.zipCode}
             onChangeText={formik.handleChange('zipCode')}
-            backgroundColor={colors.color7}
-            style={{ padding: 5, justifyContent: "center", alignItems: "center" }}
+            style={styles.Textinput}
             activeUnderlineColor={colors.color1}
             underlineColor="gray"
             />
-            <HelperText type="error" visible={formik.errors.zipCode}>
+            <HelperText type="error" visible={formik.errors.zipCode} style={{marginHorizontal: 20}}>
               {formik.errors.zipCode}
             </HelperText>
+
+            <Button
+            mode="contained"
+            style={styles.button}
+            onPress={formik.handleSubmit}
+            disabled={!formik.isValid}
+            >Save Changes</Button>
 
 
     </ScrollView>
@@ -132,5 +136,10 @@ const styles = StyleSheet.create({
   Textinput: {
     padding: 5, 
     marginHorizontal: 20
-  }
+  },
+  button: {
+    marginTop: 20,
+    marginTop: 5,
+    backgroundColor: colors.color1,
+  },
 })
