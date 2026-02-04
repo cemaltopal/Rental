@@ -16,6 +16,7 @@ const AccountStack = () => {
         header: (props) => <Header {...props}/>
         ,
       }}
+        name="ChangePassword" 
       initialRouteName="ProfileScreen"
 
       >

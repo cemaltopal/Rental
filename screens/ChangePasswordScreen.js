@@ -25,15 +25,16 @@ const ChangePasswordScreen = () => {
       };
       const formik = useFormik({
         initialValues,
+        validationSchema,
         onSubmit: (values) => {
           console.log(values);
-        },
-        validationSchema,
+        }
+        
       });
 
-      const [sacureCurrentPassword, setSacureCurrentPassword] = React.useState(true);
-      const [sacurePassword, setSacurePassword] = React.useState(true);
-      const [sacureConfirmPassword, setSacureConfirmPassword] = React.useState(true);
+      const [secureCurrentPassword, setSecureCurrentPassword] = React.useState(true);
+      const [secureNewPassword, setSecureNewPassword] = React.useState(true);
+      const [secureConfirmPassword, setSecureConfirmPassword] = React.useState(true);
 
   return (
     <ScrollView style={{padding: 10}}>
@@ -42,14 +43,14 @@ const ChangePasswordScreen = () => {
       <View style={{padding: 20}}>
       <TextInput
             placeholder= "Current Password"
-            value={formik.values.password}
-            onChangeText={formik.handleChange('password')}
+            value={formik.values.currentPassword}
+            onChangeText={formik.handleChange('currentPassword')}
             backgroundColor={colors.color7}
             style={{ padding: 5, justifyContent: "center", alignItems: "center" }}
             activeUnderlineColor={colors.color1}
             underlineColor="gray"
-            secureTextEntry={sacureCurrentPassword}
-            right={<TextInput.Icon name={sacureCurrentPassword ? "eye-off" : "eye"} onPress={() => setSacureCurrentPassword(!sacureCurrentPassword)} />}
+            secureTextEntry={secureCurrentPassword}
+            right={<TextInput.Icon icon={secureCurrentPassword ? "eye-off" : "eye"} onPress={() => setSecureCurrentPassword(!secureCurrentPassword)} />}
             />
             <HelperText type="error" visible={formik.errors.password}>
               {formik.errors.password}
@@ -62,6 +63,8 @@ const ChangePasswordScreen = () => {
             style={{ padding: 5, justifyContent: "center", alignItems: "center" }}
             activeUnderlineColor={colors.color1}
             underlineColor="gray"
+            secureTextEntry={secureNewPassword}
+            right={<TextInput.Icon icon={secureNewPassword ? "eye-off" : "eye"} onPress={() => setSecureNewPassword(!secureNewPassword)} />}
             />
             <HelperText type="error" visible={formik.errors.password}>
               {formik.errors.password}
@@ -75,6 +78,8 @@ const ChangePasswordScreen = () => {
             style={{ padding: 5, justifyContent: "center", alignItems: "center" }}
             activeUnderlineColor={colors.color1}
             underlineColor="gray"
+            secureTextEntry={secureConfirmPassword}
+            right={<TextInput.Icon icon={secureConfirmPassword ? "eye-off" : "eye"} onPress={() => setSecureConfirmPassword(!secureConfirmPassword)} />}
             />
             <HelperText type="error" visible={formik.errors.confirmPassword}>
               {formik.errors.confirmPassword}

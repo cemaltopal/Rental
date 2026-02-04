@@ -171,6 +171,7 @@ const RegisterScreen = () => {
         style={styles.button}
         mode="contained"
         onPress={formik.handleSubmit}
+        disabled={!formik.isValid}
         >
         Register
       </Button>
@@ -185,7 +186,12 @@ export default RegisterScreen;
 const styles = StyleSheet.create({
   button: {
     marginTop: 20,
+    marginBottom: 40,
     backgroundColor: colors.color1,
     color: "black",
   },
+  container: {
+    flex: 1,
+    padding: 10,
+  }
 });
