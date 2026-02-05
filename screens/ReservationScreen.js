@@ -117,6 +117,25 @@ const ReservationScreen = () => {
     },
   ]);
 
+  const [sortedReservationList, setSortedReservationList] = useState(reservations);
+  const sortReservation = () => {
+    if (sortDirection === "descending") {
+      setSortedReservationList(sortedReservationList.reverse());
+    } else {
+      setSortedReservationList(sortedReservationList);    }
+  };
+
+  useEffect(() => {
+   let sortedReservations = reservations.sort(
+    (a, b) => {
+      let aDateTime = new Date(a.pickUpTime);
+      let bDateTime = new Date(b.pickUpTime);
+      return aDateTime - bDateTime;
+    }  );
+ 
+   setSortedReservationList(sortedReservations);
+},  []);
+
   const [sortDirection, setSortDirection] = useState("descending");
   const sortDirectionHandler = () => {
     if (sortDirection === "descending") {
@@ -124,6 +143,7 @@ const ReservationScreen = () => {
     } else {
       setSortDirection("descending");
     }
+    sortReservation();
   }
 
    
@@ -139,7 +159,7 @@ const ReservationScreen = () => {
           <DataTable.Title>Pickup Location</DataTable.Title>
           <DataTable.Title sortDirection= {sortDirection}  onPress={sortDirectionHandler} >Pickup Date</DataTable.Title>
         </DataTable.Header>
-        {reservations.map((reservation) => (
+        {sortedReservationList.map((reservation) => (
           <DataTable.Row key={reservation.id}>
             <DataTable.Cell>{reservation.car.model}</DataTable.Cell>
             <DataTable.Cell>{reservation.pickUpLocation}</DataTable.Cell>
