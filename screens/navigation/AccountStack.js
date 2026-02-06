@@ -40,7 +40,7 @@ const AccountStack = () => {
         component={ReservationScreen}
         options={{ title: "Reservations" }} />
         <Stack.Screen 
-        name="ReservationDetails" 
+        name="ReservationDetailsScreen" 
         component={ReservationDetailsScreen}
         options={{ title: "Reservation Details" }} />
         

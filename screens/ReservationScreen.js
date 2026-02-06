@@ -10,7 +10,7 @@ import sizes from "../constants/sizes";
 const ReservationScreen = () => {
 
   //response.content
-  const [reservations, setReservations] = useState([
+  const reservations = [
     {
       id: 1,
       car: {
@@ -115,15 +115,10 @@ const ReservationScreen = () => {
       status: "CREATED",
       totalPrice: 0,
     },
-  ]);
+  ];
 
   const [sortedReservationList, setSortedReservationList] = useState(reservations);
-  const sortReservation = () => {
-    if (sortDirection === "descending") {
-      setSortedReservationList(sortedReservationList.reverse());
-    } else {
-      setSortedReservationList(sortedReservationList);    }
-  };
+
 
   useEffect(() => {
    let sortedReservations = reservations.sort(
@@ -143,11 +138,13 @@ const ReservationScreen = () => {
     } else {
       setSortDirection("descending");
     }
-    sortReservation();
+    setSortedReservationList(sortedReservationList.reverse());
   }
 
    
   //car, picuplocation, picupdate
+
+  const navigation = useNavigation();
 
   return (
     <ScrollView style={styles.container}>
@@ -160,7 +157,7 @@ const ReservationScreen = () => {
           <DataTable.Title sortDirection= {sortDirection}  onPress={sortDirectionHandler} >Pickup Date</DataTable.Title>
         </DataTable.Header>
         {sortedReservationList.map((reservation) => (
-          <DataTable.Row key={reservation.id}>
+          <DataTable.Row key={reservation.id} onPress={() => navigation.navigate("ReservationDetailsScreen", {reservation})}>
             <DataTable.Cell>{reservation.car.model}</DataTable.Cell>
             <DataTable.Cell>{reservation.pickUpLocation}</DataTable.Cell>
             <DataTable.Cell>{reservation.pickUpTime}</DataTable.Cell>
