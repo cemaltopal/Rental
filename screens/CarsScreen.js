@@ -18,7 +18,8 @@ const CarsScreen = () => {
       "builting": true,
       "image": require('../assets/cars/alfaromeo.jpg')},
 
-      {"id": 1, 
+      {
+        "id": 1, 
       "model": "Mercedes Blue", 
       "doors": 3, 
       "seats": 5, 
@@ -40,7 +41,8 @@ const CarsScreen = () => {
       "builting": true,
       "image": require('../assets/cars/bmw.jpg')},
 
-      {"id": 3, 
+      {
+      "id": 3, 
       "model": "Bugatti", 
       "doors": 3, 
       "seats": 4, 
@@ -50,6 +52,18 @@ const CarsScreen = () => {
       "fuelType": "Diesel", 
       "builting": true,
       "image": require('../assets/cars/bugatti.jpg')},
+
+      {
+      "id": 4, 
+      "model": "RangeRover", 
+      "doors": 3, 
+      "seats": 4, 
+      "transmission": "Automatic", 
+      "airConditioning": true, 
+      "pricePerHour": 80,
+      "fuelType": "Diesel", 
+      "builting": true,
+      "image": require('../assets/cars/rangerover.jpg')},
   ]);
 
   const {searchActive} = useContext(AppContext);
