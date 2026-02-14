@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React, { useState, useCallback } from 'react';
-import { Card, Title, Paragraph, Button, TextInput, HelperText } from 'react-native-paper'
+import { Card, Title, Paragraph, Button, TextInput, HelperText, Portal, Modal } from 'react-native-paper'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { DatePickerModal } from 'react-native-paper-dates';
 import { registerTranslation, enGB } from 'react-native-paper-dates';
@@ -11,8 +11,18 @@ import *as Yup from 'yup';
 
 registerTranslation('en', enGB);
 
-const CarReservation = () => {
+const CarReservation = ( {id} ) => {
 
+  
+    const [picupLocation, setPicupLocation] = useState("");
+    const [dropoffLocation, setDropoffLocation] = useState("");
+    const [reservationSuccessState, setReservationSuccessState] = useState({
+      success: true,
+      message: "Your Reservation Request Has Been Sent",
+    });
+
+
+  //FORMİK STATES
     const validationSchema = Yup.object().shape({
         picupLocation: Yup.string()
         .max(250)
@@ -30,15 +40,17 @@ const CarReservation = () => {
         initialValues: {
           picupLocation: "",
           dropoffLocation: "",
-          pickupDate: undefined,
-          dropoffDate: undefined,
+          pickupDate: "",
+          dropoffDate: "",
         },
         onSubmit: values => {
+          console.log(id);
           console.log(values);
+          showModal();
         },
         validationSchema,
     });
-    
+    //END FORMİK STATES
 
 //Date Picker States
     const [range, setRange] = useState({
@@ -60,11 +72,31 @@ const CarReservation = () => {
 
     //End Date Picker States
   
-    const [picupLocation, setPicupLocation] = useState("");
-    const [dropoffLocation, setDropoffLocation] = useState("");
+    /* MODAL DEĞİŞKENLERİ */
+    const [visible, setVisible] = React.useState(false);
+
+    const showModal = () => setVisible(true);
+    const hideModal = () => setVisible(false);
+    const containerStyle = { backgroundColor: 'white', padding: 20 };
+
+    /* MODAL DEĞİŞKENLERİ SON */
 
   return (
     <View style={{marginTop: 10}}>
+      <Portal>
+        <Modal 
+        visible={visible} 
+        onDismiss={hideModal} 
+        contentContainerStyle={styles.modalContainer}>
+
+          <Title style={reservationSuccessState.success ? styles.success : styles.fail}>
+            Reservation Result: {" "} 
+            {reservationSuccessState.success ? "Success" : "Not Avaliable"}
+            </Title>
+          <Text>{reservationSuccessState.message}</Text>
+          
+        </Modal>
+      </Portal>
         <TextInput
             placeholder="Pickup Location"
             value={formik.values.picupLocation}
@@ -143,5 +175,18 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         backgroundColor: colors.color4,
       },
+      modalContainer: {
+        alignItems: 'center',
+        backgroundColor: 'white',
+        padding: 20,
+        margin: 20,
+        height: 300,
+      },
+      success: {
+        color: "green"
+      },
+      fail: {
+        color: "red"
+      }
       
 })
