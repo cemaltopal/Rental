@@ -5,6 +5,7 @@ import CarsScreen from '../CarsScreen';
 import ReservationResultScreen from '../ReservationResultScreen';
 import colors from '../../constants/colors';
 import Header from '../../components/common/Header';
+import PaymentScreen from '../PaymentScreen';
 
 const HomeStack = () => {
     const Stack = createNativeStackNavigator();
@@ -14,6 +15,7 @@ const HomeStack = () => {
       screenOptions={{
         header: (props) => <Header {...props}/>,
       }}
+      initialRouteName='PaymentScreen'
       >
         <Stack.Screen 
           name="CarsScreen" 
@@ -40,6 +42,16 @@ const HomeStack = () => {
           headerStyle: { backgroundColor: colors.color1},
           headerTintColor: "#fff",
         }} />
+
+        <Stack.Screen 
+          name="PaymentScreen" 
+          component={PaymentScreen} 
+          options={{
+              title: "Credit Card Payment", 
+              headerStyle: { backgroundColor: colors.color1 },
+              headerTintColor: "#fff",
+              }} 
+              />
       
     
     </Stack.Navigator>
