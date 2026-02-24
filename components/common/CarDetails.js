@@ -6,7 +6,7 @@ import colors from "../../constants/colors";
 import sizes from "../../constants/sizes";
 import { TouchableOpacity } from "react-native";
 
-const CarDetails = ({ details }) => {
+const CarDetailsCard = ({ details }) => {
   const {
     id,
     model,
@@ -67,14 +67,14 @@ const CarDetails = ({ details }) => {
   );
 };
 
-export default CarDetails;
+export default CarDetailsCard;
 
 const styles = StyleSheet.create({
-    cardContent: {  
-    alignItems: 'center',
+  cardContent: {
+    alignItems: "center",
   },
   title: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 20,
   },
   card: {

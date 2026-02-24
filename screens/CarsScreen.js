@@ -4,7 +4,7 @@ import Car from '../components/home/Car';
 import { Button,SearchBar } from 'react-native-screens';
 import AppContext from '../store/AppContext';
 
-const CarsScreen = () => {
+const CarsListScreen = () => {
   const [cars, setCars] = useState([
     {
       "id": 0, 
@@ -108,5 +108,5 @@ const styles = StyleSheet.create({
   }
 })
 
-export default CarsScreen;
+export default CarsListScreen;
 
