@@ -4,15 +4,22 @@ import { TextInput, Button, HelperText, List } from "react-native-paper";
 import colors from "../constants/colors";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useNavigation } from "@react-navigation/native";
 import CarDetailsCard from "../components/common/CarDetails";
 import dateTimeFormatter from "../components/common/dateTimeFormatter";
 import { MaskedTextInput } from "react-native-mask-text";
 
-
 const PaymentScreen = ({ route }) => {
-  const orderSummary = route.params;
-  console.log(orderSummary);
+  // 1. Veriyi güvenli bir şekilde al. Eğer route.params yoksa boş obje ata.
+  const orderSummary = route.params?.orderSummary || route.params; 
+
+  // 2. KRİTİK: Eğer veri hala gelmemişse veya eksikse ekranın patlamasını engelle
+  if (!orderSummary || !orderSummary.pickupDate) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Loading payment details...</Text>
+      </View>
+    );
+  }
 
   const validationSchema = Yup.object().shape({
     fullName: Yup.string().required("Full Name is required"),
@@ -50,15 +57,29 @@ const PaymentScreen = ({ route }) => {
     return totalPrice;
   };
 
+
   return (
     <ScrollView style={styles.container}>
-      <CarDetailsCard data={orderSummary} />
-        <List.Item
+      {orderSummary?.id ? (
+        <CarDetailsCard details={orderSummary} />
+      ) : (
+        <View
+          style={{ padding: 20, backgroundColor: "#fee", borderRadius: 10 }}
+        >
+          <Text style={{ color: "red" }}>Araç detayları yüklenemedi.</Text>
+        </View>
+      )}
+
+      <List.Item
         title="Pickup Location"
-        titleStyle={{ fontWeight: "bold"}}
+        titleStyle={{ fontWeight: "bold" }}
         description={orderSummary.pickUpLocation}
         left={(props) => (
-          <List.Icon {...props} icon="map-marker-right-outline" color={colors.color1} />    
+          <List.Icon
+            {...props}
+            icon="map-marker-right-outline"
+            color={colors.color1}
+          />
         )}
       />
       <List.Item
@@ -66,7 +87,11 @@ const PaymentScreen = ({ route }) => {
         titleStyle={{ fontWeight: "bold" }}
         description={orderSummary.dropOffLocation}
         left={(props) => (
-          <List.Icon {...props} icon="map-marker-left-outline" color={colors.color1} />
+          <List.Icon
+            {...props}
+            icon="map-marker-left-outline"
+            color={colors.color1}
+          />
         )}
       />
 
@@ -75,7 +100,11 @@ const PaymentScreen = ({ route }) => {
         titleStyle={{ fontWeight: "bold" }}
         description={orderSummary.dropOffLocation}
         left={(props) => (
-          <List.Icon {...props} icon="map-marker-left-outline" color={colors.color1} />
+          <List.Icon
+            {...props}
+            icon="map-marker-left-outline"
+            color={colors.color1}
+          />
         )}
       />
 
@@ -84,7 +113,11 @@ const PaymentScreen = ({ route }) => {
         titleStyle={{ fontWeight: "bold" }}
         description={dateTimeFormatter(orderSummary.pickupDate)}
         left={(props) => (
-          <List.Icon {...props} icon="calendar-month-outline" color={colors.color1} />
+          <List.Icon
+            {...props}
+            icon="calendar-month-outline"
+            color={colors.color1}
+          />
         )}
       />
 
@@ -93,7 +126,11 @@ const PaymentScreen = ({ route }) => {
         titleStyle={{ fontWeight: "bold" }}
         description={dateTimeFormatter(orderSummary.dropoffDate)}
         left={(props) => (
-          <List.Icon {...props} icon="calendar-month-outline" color={colors.color1} />
+          <List.Icon
+            {...props}
+            icon="calendar-month-outline"
+            color={colors.color1}
+          />
         )}
       />
 
@@ -110,7 +147,7 @@ const PaymentScreen = ({ route }) => {
         value={formik.values.fullName}
         onChangeText={formik.handleChange("fullName")}
         backgroundColor={colors.color7}
-        style={{ padding: 5, marginTop: 10}}
+        style={{ padding: 5, marginTop: 10 }}
         activeUnderlineColor={colors.color1}
         underlineColor="gray"
       />
@@ -147,15 +184,17 @@ const PaymentScreen = ({ route }) => {
           </HelperText>
         </View>
 
-        <View style={{ flexDirection: "column" }}>
+        <View style={{ flexDirection: "column", flex: 2 }}>
           <TextInput
-            placeholder="CVV Number"
+            label="CVV Number"
             value={formik.values.cvv}
             onChangeText={formik.handleChange("cvv")}
-            backgroundColor={colors.color7}
+            render={(props) => (
+              <MaskedTextInput {...props} mask="999" keyboardType="numeric" />
+            )}
+            mode="outlined"
+            style={styles.input}
             activeUnderlineColor={colors.color1}
-            underlineColor="gray"
-            keyboardType="numeric"
           />
           <HelperText type="error" visible={formik.errors.cvv}>
             {formik.errors.cvv}
