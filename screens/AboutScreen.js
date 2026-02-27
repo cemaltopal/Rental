@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Linking } from "react-native";
 import React from "react";
 import { Button, Card } from "react-native-paper";
 import colors from "../constants/colors";
+import sizes from "../constants/sizes";
 
 const AboutScreen = () => {
   return (
@@ -10,6 +11,7 @@ const AboutScreen = () => {
         <Card.Cover source={require("../assets/cars/rangerover.jpg")} />
         <Card.Content style={styles.content}>
           <Button
+            icon={"phone"}
             mode="contained"
             style={styles.button}
             onPress={() => {
@@ -20,11 +22,12 @@ const AboutScreen = () => {
           </Button>
 
           <Button
+            icon={"email"}
             mode="contained"
+            style={styles.button}
             onPress={() => {
               Linking.openURL("mailto:test@example.com");
             }}
-            style={styles.button}
           >
             Send Email
           </Button>
@@ -39,12 +42,14 @@ export default AboutScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    padding: sizes.containerPadding,
   },
   content: {
     flexDirection: "row",
     justifyContent: "space-around",
+    marginTop: 20,
   },
   button: {
-    borderBlockColor: colors.color1,
+    backgroundColor: colors.color1,
   },
 });

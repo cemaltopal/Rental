@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import React from 'react';
 import { TextInput, Button, HelperText } from 'react-native-paper';
 import colors from '../constants/colors';
+import sizes from '../constants/sizes';
 
 const ChangePasswordScreen = () => {
 
@@ -104,7 +105,7 @@ export default ChangePasswordScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
+    padding: sizes.containerPadding,
   },
   card: {
     marginTop: 20,
