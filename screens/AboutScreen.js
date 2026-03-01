@@ -34,23 +34,28 @@ const AboutScreen = () => {
           </Button>
         </Card.Content>
       </Card>
-      
-      {aboutUs.map((item) => (
-        
-          <List.Item
-            key={item.id}
-            title= {item.title}
-            titleStyle={{ fontWeight: "bold" }}
-            description= {item.description}
-            left={(props) => <List.Icon {...props} icon="information" color={colors.color1} style={{marginTop: 10}} />}
-          />
-        
-      ))}
-      <View style={{height: 50}}></View>
-    </ScrollView>
-      );
-    };
 
+      {aboutUs.map((item) => (
+        <List.Item
+          key={item.id}
+          title={item.title}
+          titleStyle={{ fontWeight: "bold" }}
+          description={item.description}
+          descriptionNumberOfLines={6}
+          left={(props) => (
+            <List.Icon
+              {...props}
+              icon="information"
+              color={colors.color1}
+              style={{ marginTop: 10 }}
+            />
+          )}
+        />
+      ))}
+      <View style={{ height: 50 }}></View>
+    </ScrollView>
+  );
+};
 
 export default AboutScreen;
 
@@ -58,7 +63,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: sizes.containerPadding,
-
   },
   content: {
     flexDirection: "row",
