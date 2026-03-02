@@ -6,6 +6,8 @@ import ReservationResultScreen from "../ReservationResultScreen";
 import colors from "../../constants/colors";
 import Header from "../../components/common/Header";
 import PaymentScreen from "../PaymentScreen";
+import LoginScreen from "../LoginScreen";
+import RegisterScreen from "../RegisterScreen";
 
 const HomeStack = () => {
   const Stack = createNativeStackNavigator();
@@ -18,6 +20,16 @@ const HomeStack = () => {
       initialRouteName="CarsScreen"
 
     >
+       <Stack.Screen 
+        name="LoginScreen" 
+        component={LoginScreen}
+        options={{ title: "Login" }} />
+        
+         <Stack.Screen 
+        name="RegisterScreen" 
+        component={RegisterScreen}
+        options={{ title: "Register" }} />
+
       <Stack.Screen
         name="CarsScreen"
         component={CarsScreen}
