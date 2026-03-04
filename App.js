@@ -9,13 +9,15 @@ import AccountStack from "./screens/navigation/AccountStack";
 import HomeStack from "./screens/navigation/HomeStack";
 import { PaperProvider } from "react-native-paper";
 import AppContext from "./store/AppContext";
+import Toast from "react-native-toast-message";
 
 export default function App() {
   const Tab = createBottomTabNavigator();
   const [searchActive, setSearchActive] = useState(false);
+  const [userInformation, setUserInformation] = useState({});
 
   return (
-    <AppContext.Provider value={{ searchActive, setSearchActive }}>
+    <AppContext.Provider value={{ searchActive, setSearchActive, userInformation, setUserInformation }}>
       <PaperProvider>
         <NavigationContainer>
           <Tab.Navigator
@@ -69,6 +71,7 @@ export default function App() {
             }}
           />
         </Tab.Navigator>
+        <Toast />
       </NavigationContainer>
     </PaperProvider>
     </AppContext.Provider>

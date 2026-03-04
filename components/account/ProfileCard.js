@@ -1,9 +1,13 @@
 import { Alert, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
 import { Avatar, Button, Card, Icon, Paragraph, IconButton, Title } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
+import { useContext } from 'react';
+import AppContext from '../../store/AppContext';
+import LoginScreen from '../../screens/LoginScreen';
+import { use } from 'react';
 
 const ProfileCard = ({page}) => {
+    const { userInformation } = useContext(AppContext);
     const navigation = useNavigation();
 
     const handleLogout = () => {
@@ -28,8 +32,8 @@ const ProfileCard = ({page}) => {
     <Card> 
         <Card.Content style={styles.content}>  
             <Avatar.Icon size={100} icon="account-circle" color='gray' />
-            <Title style= {styles.title}>John DOE</Title>
-            <Paragraph>admin@rentalcars.com</Paragraph>
+            <Title style= {styles.title}>{userInformation.firstName} {userInformation.lastName}</Title>
+            <Paragraph>{userInformation.email}</Paragraph>
             <View style={{
                 width: "100%",
                 justifyContent: "space-between",

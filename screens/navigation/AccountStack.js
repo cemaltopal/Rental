@@ -17,7 +17,7 @@ const AccountStack = () => {
         ,
       }}
         name="ChangePassword" 
-      initialRouteName="LoginScreen"
+      initialRouteName="ProfileScreen"
 
       >
         

@@ -2,12 +2,16 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import ProfileCard from '../components/account/ProfileCard';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TextInput, Button, HelperText } from 'react-native-paper';
 import colors from '../constants/colors';
 import sizes from '../constants/sizes';
+import { userApi } from '../api/userApi';
+import { useContext } from 'react';
+import AppContext from '../store/AppContext';
 
 const ProfileScreen = () => {
+  const { userInformation } = useContext(AppContext);
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string()
@@ -36,13 +40,24 @@ const ProfileScreen = () => {
     address: '',
     zipCode: '',
   };
+
+  useEffect(() => {
+      formik.setFieldValue('firstName', userInformation.firstName);
+      formik.setFieldValue('lastName', userInformation.lastName);
+      formik.setFieldValue('phone', userInformation.phoneNumber);
+      formik.setFieldValue('address', userInformation.address);
+      formik.setFieldValue('zipCode', userInformation.zipCode);
+    }, []);
+
   const formik = useFormik({
     initialValues,
+    validationSchema,
     onSubmit: (values) => {
       console.log(values);
     },
-    validationSchema,
   });
+
+    
 
   return (
     <ScrollView style={styles.container}>
