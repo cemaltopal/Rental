@@ -4,8 +4,12 @@ import colors from '../constants/colors';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useNavigation } from '@react-navigation/native';
+import { userApi } from '../api/userApi';
+import Toast from 'react-native-toast-message';
+import { MaskedTextInput } from 'react-native-mask-text';
 
 const RegisterScreen = () => {
+  const navigation = useNavigation();
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
@@ -56,6 +60,31 @@ const RegisterScreen = () => {
     initialValues,
     onSubmit: (values) => {
       console.log(values);
+
+      userApi
+      .registerUser({
+        email: values.email,
+        password: values.password,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        phoneNumber: values.phone,
+        address: values.address,
+        zipCode: values.zipCode,
+      })
+      .then((response) => {
+        if (response === true) {
+          Toast.show({
+            type: "success",
+            text1: "Register Successful",
+          });
+          navigation.navigate("LoginScreen");
+        } else {
+          Toast.show({
+            type: "error",
+            text1: response,
+          });
+        }
+      })
     },
     validationSchema,
   });
@@ -98,6 +127,12 @@ const RegisterScreen = () => {
             style={{ padding: 5, justifyContent: "center", alignItems: "center" }}
             activeUnderlineColor={colors.color1}
             underlineColor="gray"
+            render={(props) => (<MaskedTextInput 
+              {... props}
+              value={formik.props.value}
+              mask="(999) 999-9999"
+              />
+            )}
             />
             <HelperText type="error" visible={formik.errors.phone}>
               {formik.errors.phone}

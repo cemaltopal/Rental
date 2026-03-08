@@ -9,6 +9,7 @@ import sizes from '../constants/sizes';
 import { userApi } from '../api/userApi';
 import { useContext } from 'react';
 import AppContext from '../store/AppContext';
+import Toast from 'react-native-toast-message';
 
 const ProfileScreen = () => {
   const { userInformation } = useContext(AppContext);
@@ -33,7 +34,7 @@ const ProfileScreen = () => {
       .required(),
   });
   
-  const initialValues = {
+  let initialValues = {
     firstName: '',
     lastName: '',
     phone: '',
@@ -42,6 +43,13 @@ const ProfileScreen = () => {
   };
 
   useEffect(() => {
+    initialValues = {
+      firstName: userInformation.firstName,
+      lastName: userInformation.lastName,
+      phone: userInformation.phoneNumber,
+      address: userInformation.address,
+      zipCode: userInformation.zipCode
+    }
       formik.setFieldValue('firstName', userInformation.firstName);
       formik.setFieldValue('lastName', userInformation.lastName);
       formik.setFieldValue('phone', userInformation.phoneNumber);
@@ -52,8 +60,38 @@ const ProfileScreen = () => {
   const formik = useFormik({
     initialValues,
     validationSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       console.log(values);
+
+      userApi.updateUserDetails({
+        firstName: values.firstName,
+        lastName: values.lastName,
+        email: userInformation.email,
+        phoneNumber: values.phone,
+        address: values.address,
+        zipCode: values.zipCode,
+      })
+        .then((response) => {
+          if (response === true) {
+            Toast.show({
+              type: "success",
+              text1: "Profile Updated Successfully",
+            });
+            setUserInformation({...userInformation, firstName: values.firstName, 
+              lastName: values.lastName,
+            });
+          } else {
+            Toast.show({
+              type: "error",
+              text1: response,
+            });
+          }
+          
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
     },
   });
 

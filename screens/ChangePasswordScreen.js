@@ -6,6 +6,8 @@ import React from 'react';
 import { TextInput, Button, HelperText } from 'react-native-paper';
 import colors from '../constants/colors';
 import sizes from '../constants/sizes';
+import { userApi } from '../api/userApi';
+import Toast from 'react-native-toast-message';
 
 const ChangePasswordScreen = () => {
 
@@ -27,8 +29,28 @@ const ChangePasswordScreen = () => {
       const formik = useFormik({
         initialValues,
         validationSchema,
-        onSubmit: (values) => {
+        onSubmit: async (values) => {
           console.log(values);
+
+        userApi.updateUserPassword({
+          oldPassword: values.currentPassword, 
+          newPassword:values.password
+        })
+        .then((response) => {
+          if (response === true) {
+            Toast.show({
+              type: "success",
+              text1: "Password Changed Successfully",
+            });
+          } else {
+            Toast.show({
+              type: "error",
+              text1: response,
+            });
+          }
+        }).catch((error) => {
+          console.log(error);
+        });
         }
         
       });

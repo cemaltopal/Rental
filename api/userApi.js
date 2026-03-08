@@ -1,7 +1,6 @@
 import Axios from "axios";
 import * as SecureStore from "expo-secure-store";
 
-
 export const userApi = {
   login: async (email, password) => {
     return Axios.post("https://carrental-v3-backend.herokuapp.com/login", {
@@ -73,7 +72,7 @@ export const userApi = {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       )
         .then((response) => {
           console.log("****Update User Response: ");
@@ -97,7 +96,7 @@ export const userApi = {
     console.log(data);
     return Axios.post(
       "https://carrental-v3-backend.herokuapp.com/register",
-      data
+      data,
     )
       .then((response) => {
         console.log("****Register User Response: ");
@@ -127,7 +126,7 @@ export const userApi = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
+      },
     )
       .then((response) => {
         console.log("****Update User Password Response: ");
@@ -152,7 +151,7 @@ export const userApi = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
+      },
     )
       .then((response) => {
         console.log("****List All Reservations Response: ");
@@ -162,7 +161,7 @@ export const userApi = {
       .catch((error) => {
         console.log(
           "List All Reservations Error:",
-          error.response.data.message
+          error.response.data.message,
         );
         return null;
       });

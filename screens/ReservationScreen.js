@@ -6,11 +6,11 @@ import colors from "../constants/colors";
 import { useNavigation } from "@react-navigation/native";
 import ReservationDetailsScreen from "./ReservationDetailsScreen";
 import sizes from "../constants/sizes";
+import { userApi } from "../api/userApi";
 
 const ReservationScreen = () => {
 
-  //response.content
-  const reservations = [
+  const [reservations, setReservations] = useState([
     {
       id: 1,
       car: {
@@ -101,13 +101,19 @@ const ReservationScreen = () => {
       status: "CREATED",
       totalPrice: 0,
     },
-  ];
+  ]);
+
+  //response.content
 
   const [sortedReservationList, setSortedReservationList] = useState(reservations);
 
 
   useEffect(() => {
-   let sortedReservations = reservations.sort(
+    userApi.listAllReservations(1, 10)
+    .then((response) => {
+      if (response.content) {
+      setReservations(response.content);
+       let sortedReservations = reservations.sort(
     (a, b) => {
       let aDateTime = new Date(a.pickUpTime);
       let bDateTime = new Date(b.pickUpTime);
@@ -115,6 +121,14 @@ const ReservationScreen = () => {
     }  );
  
    setSortedReservationList(sortedReservations);
+      }else{
+        setSortedReservationList([]);
+      }
+    }).catch((error) => {
+      setSortedReservationList([]);
+      console.log(error);
+    })
+  
 },  []);
 
   const [sortDirection, setSortDirection] = useState("descending");

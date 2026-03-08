@@ -4,30 +4,27 @@ import { useNavigation } from '@react-navigation/native';
 import { useContext } from 'react';
 import AppContext from '../../store/AppContext';
 import LoginScreen from '../../screens/LoginScreen';
-import { use } from 'react';
 
 const ProfileCard = ({page}) => {
     const { userInformation } = useContext(AppContext);
     const navigation = useNavigation();
 
     const handleLogout = () => {
-        Alert.alert(
-            "Logout",
-            "Are you sure you want to logout?",
-            [
-                {
-                    text: "Cancel",
-                    onPress: () => {},
-                    style: "cancel",
-                },
-                {
-                    text: "OK",
-                    onPress: () => navigation.navigate("LoginScreen"),
-                },
-            ]
-        )
-       
-    }
+    Alert.alert("Logout", "Are you sure you want to logout?", [
+      {
+        text: "Cancel",
+        onPress: () => {},
+        style: "cancel",
+      },
+      {
+        text: "OK",
+        onPress: () => {
+          navigation.navigate("LoginScreen");
+        },
+      },
+    ]);
+    return;
+  };
   return (
     <Card> 
         <Card.Content style={styles.content}>  
